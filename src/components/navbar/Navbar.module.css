@@ -1,0 +1,15 @@
+
+
+.nav{
+    grid-area: n;
+    background-color:peru;
+    color: white;
+    border: 3px solid white;
+    padding-top: 3em;
+    text-align:center;
+    font-size: 25px;
+}
+
+.indent{
+    padding-top: 20px;
+}
