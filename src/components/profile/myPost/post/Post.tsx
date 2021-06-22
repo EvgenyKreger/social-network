@@ -3,7 +3,7 @@ import React from 'react';
 import postCss from './Post.module.css'
 type MessageProps={
     message:string
-    like:number
+    likesCount:number
 }
 
 
@@ -13,7 +13,7 @@ export function Post(props:MessageProps){
             <img src="https://topmsg.ru/wp-content/uploads/anonymous.jpg" alt="avatar"/>
             {props.message}
             <div>
-               <span>like</span> {props.like}
+               <span>like</span> {props.likesCount}
             </div>
         </div>
     )

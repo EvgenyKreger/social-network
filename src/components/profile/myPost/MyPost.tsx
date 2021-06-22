@@ -1,18 +1,30 @@
 import React from 'react';
 import myPostCss from './MyPost.module.css'
 import {Post} from './post/Post';
+import {ProfilePageType} from '../../../redux/state.js';
 
-export function MyPost() {
+
+
+type Stated= {
+    stated:ProfilePageType
+}
+
+export function MyPost(props:Stated) {
+let postsElement=props.stated.postsData.map(p=><Post message={p.message} likesCount={p.likesCount} />)
+
+   let onClickAddPost=()=>{}
     return (
-        <div>
-            My posts
+        <div className={myPostCss.item}>
+            <h3>My posts</h3>
             <div>
                 <textarea> </textarea>
-                <button>Add post</button>
+                <div>
+                    <button onClick={onClickAddPost}>Add post</button>
+                </div>
             </div>
             <div className={myPostCss.posts}>
-                <Post message={'Hello! How are you?'} like={2}/>
-                <Post message={"It's my first message bro))"} like={7} />
+                {postsElement}
+
 
             </div>
         </div>
