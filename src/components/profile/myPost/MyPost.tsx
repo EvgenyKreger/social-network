@@ -1,19 +1,19 @@
-import React, {ChangeEvent, ChangeEventHandler} from 'react';
+import React, {ChangeEvent} from 'react';
 import myPostCss from './MyPost.module.css'
 import {Post} from './post/Post';
-import {ProfilePageType} from '../../../redux/state.js';
+import {ActionsTypes, addPostAC, changeNewPostAC, ProfilePageType} from '../../../redux/state.js';
 
 
-
-type Stated= {
-    stated:ProfilePageType
-    addPost:(postMessage:string)=>void
-    changeNewPost:(newPostText:string)=>void
+type myPostTypeProps= {
+    state:ProfilePageType
     newPostText:string
+    dispatch:(action:ActionsTypes)=>void
+
+
 }
 
-export function MyPost(props:Stated) {
-let postsElement=props.stated.postsData.map(p=><Post message={p.message} likesCount={p.likesCount} />)
+export function MyPost(props:myPostTypeProps) {
+let postsElement=props.state.postsData.map(p=><Post message={p.message} likesCount={p.likesCount} />)
 
 
 
@@ -21,11 +21,13 @@ let postsElement=props.stated.postsData.map(p=><Post message={p.message} likesCo
             if(props.newPostText.trim()===''){
                 return
             }
-    props.addPost(props.newPostText)
+            //props.dispatch({type: 'ADD-POST',postMessage: props.newPostText}) переносим функцию в state и импортируем обратно сюда
+    props.dispatch(addPostAC(props.newPostText))
 
 
     }
-let onChangeTextarea=(e:ChangeEvent<HTMLTextAreaElement>)=>{props.changeNewPost(e.currentTarget.value)}
+//{type: 'CHANGE-NEW-POST', postText: e.currentTarget.value}переносим функцию в state и импортируем обратно сюда
+let onChangeTextarea=(e:ChangeEvent<HTMLTextAreaElement>)=>{props.dispatch(changeNewPostAC(e.currentTarget.value))}
 
     return (
         <div className={myPostCss.item}>

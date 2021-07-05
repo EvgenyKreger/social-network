@@ -1,42 +1,71 @@
+type DialogsType = {
+    id: number
+    name: string
+}
+type MessageType = {
+    id: number
+    message: string
+}
+export type PostDataType = {
+    id: number
+    message: string
+    likesCount: number
+}
+export type DialogsPageType = {
+    message: Array<MessageType>
+    dialogs: Array<DialogsType>
+}
+export type ProfilePageType = {
+    postsData: Array<PostDataType>
+    newPostText: string
+}
+export type StateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+}
+// export type ActionAddType = {
+//     type: 'ADD-POST'
+//     postMessage: string
+// }
+// export type ActionChangeType = {
+//     type: 'CHANGE-NEW-POST'
+//     postText: string
+// } пробразовываем в более короткую форму типизации
+// export type ActionChangeType = ReturnType<typeof changeNewPostAC>
+// export type ActionAddType = ReturnType<typeof addPostAC>
+// } пробразовываем в более короткую форму типизации
+
+export type ActionsTypes = ReturnType<typeof changeNewPostAC>|ReturnType<typeof addPostAC>
 
 
-type DialogsType={
-    id:number
-    name:string
+export const addPostAC=(postMessage: string)=> {
+    return {
+        type: 'ADD-POST',
+        postMessage: postMessage
+    }as const
 }
-type MessageType={
-    id:number
-    message:string
+
+export const changeNewPostAC =(postText: string)=> {
+    return {
+        type: 'CHANGE-NEW-POST',
+        postText:postText
+    }as const
 }
-export type PostDataType={
-    id:number
-    message:string
-    likesCount:number
-}
-export type DialogsPageType={
-    message:Array<MessageType>
-    dialogs:Array<DialogsType>
-}
-export type ProfilePageType={
-    postsData:Array<PostDataType>
-    newPostText:string
-}
-export type StateType={
-    profilePage:ProfilePageType
-    dialogsPage:DialogsPageType
-}
-export  type StoreType ={
-    _state:StateType
-    _rerenderEntireTree:()=>void
-    changeNewPost:(newPostText:string)=>void
-    addPost:(postMessage:string)=>void
-    subscribe:(observer:()=>void)=>void
-    getState:()=>StateType
+
+export type StoreType = {
+    _state: StateType
+    _callSubscriber: (state: StateType) => void
+    //changeNewPost: (newPostText: string) => void
+    //addPost: (postMessage: string) => void
+    subscribe: (observer: (state: StateType) => void) => void
+    getState: () => StateType
+    dispatch: (action: ActionsTypes) => void
+
 }
 
 
-let store:StoreType={
-    _state : {
+let store: StoreType = {
+    _state: {
         profilePage: {
             postsData: [
                 {id: 1, message: 'Hello! How are you?', likesCount: 12},
@@ -44,7 +73,7 @@ let store:StoreType={
                 {id: 3, message: 'It\'s my first message ))', likesCount: 4},
                 {id: 4, message: 'It\'s my first message ))', likesCount: 22}
             ],
-            newPostText:''
+            newPostText: ''
         },
         dialogsPage: {
             message: [
@@ -64,48 +93,40 @@ let store:StoreType={
             ]
         }
     },
-    _rerenderEntireTree(){
+    _callSubscriber(state: StateType) {
         console.log('state changed')
     },
 
-    changeNewPost(newPostText:string){
-        this._state.profilePage.newPostText=newPostText
-        this._rerenderEntireTree()
-        this._state.profilePage.newPostText=''
+    subscribe(observer) {
+        this._callSubscriber = observer
+    },
+    getState() {
+        return {...this._state}
     },
 
 
-    subscribe(observer){
-        this._rerenderEntireTree=observer
-    },
-    getState(){
-        return this._state
-    },
-    dispatch(action){
-        if (action==='ADD-POST'){
-            addPost(postMessage:string){
-                const newPost:PostDataType = {
-                    id: 5,
-                    message:postMessage,
-                    likesCount: 0};
-                this._state.profilePage.postsData.push(newPost);
-                this._rerenderEntireTree()
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost: PostDataType = {
+                id: new Date().getTime(),
+                message: action.postMessage,
+                likesCount: 0
             }
+            this._state.profilePage.postsData.push(newPost)
+            this._callSubscriber(this._state)
+            this._state.profilePage.newPostText=''
+            this._callSubscriber(this._state)
+
         }
 
+        if (action.type === 'CHANGE-NEW-POST') {
+            this._state.profilePage.newPostText = action.postText
+            this._callSubscriber(this._state)
 
-
-
+        }
 
     }
-
 }
-
-
-
-
-
-
 
 
 export default store;
