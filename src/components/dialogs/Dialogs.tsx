@@ -17,8 +17,6 @@ export function Dialogs(props: Sate) {
 
 
     const onClickMessageHandler = () => {
-
-
         if (props.newMessageText.trim()==='') {
             return
         }

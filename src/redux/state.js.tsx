@@ -1,5 +1,5 @@
 import {addPostAC, changeNewPostAC, profilePageReducer} from './profilePage-reducer';
-import {changeNewMessageAC, changeNewMessageTextAC, profilePagereducer} from './dialogsPage-reducer';
+import {changeNewMessageAC, changeNewMessageTextAC, dialogsPageReducer} from './dialogsPage-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 
 type DialogsType = {
@@ -73,7 +73,7 @@ let store: StoreType = {
         },
         sidebar: {}
     },
-    _callSubscriber(state: StateType) {
+    _callSubscriber() {
         console.log('state changed')
     },
     subscribe(observer) {
@@ -84,7 +84,7 @@ let store: StoreType = {
     },
     dispatch(action) {
         this._state.profilePage =profilePageReducer(this._state.profilePage,action)
-        this._state.dialogsPage = profilePagereducer(this._state.dialogsPage,action)
+        this._state.dialogsPage = dialogsPageReducer(this._state.dialogsPage,action)
         this._state.sidebar = sidebarReducer(this._state.sidebar,action)
         this._callSubscriber(this._state)
     }

@@ -1,6 +1,6 @@
-import {ActionsTypes, DialogsPageType, MessageType, PostDataType} from './state.js';
+import {ActionsTypes, DialogsPageType, MessageType} from './state.js';
 
-export const profilePagereducer=(state:DialogsPageType,action:ActionsTypes)=>{
+export const dialogsPageReducer=(state:DialogsPageType,action:ActionsTypes)=>{
 switch (action.type) {
 
 
@@ -9,11 +9,14 @@ switch (action.type) {
     return state
 
     case 'ADD-MESSAGE':
+
         const newMessage: MessageType = {
             id: new Date().getTime(),
             message: action.messageText,
         }
+
         state.message.push(newMessage)
+        state.newMessageText=''
         return state
     default:
         return state
