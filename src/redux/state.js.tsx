@@ -1,8 +1,12 @@
+import {addPostAC, changeNewPostAC, profilePageReducer} from './profilePage-reducer';
+import {changeNewMessageAC, changeNewMessageTextAC, profilePagereducer} from './dialogsPage-reducer';
+import {sidebarReducer} from './sidebar-reducer';
+
 type DialogsType = {
     id: number
     name: string
 }
-type MessageType = {
+export type MessageType = {
     id: number
     message: string
 }
@@ -14,6 +18,7 @@ export type PostDataType = {
 export type DialogsPageType = {
     message: Array<MessageType>
     dialogs: Array<DialogsType>
+    newMessageText:string
 }
 export type ProfilePageType = {
     postsData: Array<PostDataType>
@@ -22,47 +27,20 @@ export type ProfilePageType = {
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebar:any
 }
-// export type ActionAddType = {
-//     type: 'ADD-POST'
-//     postMessage: string
-// }
-// export type ActionChangeType = {
-//     type: 'CHANGE-NEW-POST'
-//     postText: string
-// } пробразовываем в более короткую форму типизации
-// export type ActionChangeType = ReturnType<typeof changeNewPostAC>
-// export type ActionAddType = ReturnType<typeof addPostAC>
-// } пробразовываем в более короткую форму типизации
-
-export type ActionsTypes = ReturnType<typeof changeNewPostAC>|ReturnType<typeof addPostAC>
-
-
-export const addPostAC=(postMessage: string)=> {
-    return {
-        type: 'ADD-POST',
-        postMessage: postMessage
-    }as const
-}
-
-export const changeNewPostAC =(postText: string)=> {
-    return {
-        type: 'CHANGE-NEW-POST',
-        postText:postText
-    }as const
-}
+export type ActionsTypes = ReturnType<typeof changeNewPostAC>
+    |ReturnType<typeof addPostAC>
+    |ReturnType<typeof changeNewMessageTextAC>
+    |ReturnType<typeof changeNewMessageAC>
 
 export type StoreType = {
     _state: StateType
     _callSubscriber: (state: StateType) => void
-    //changeNewPost: (newPostText: string) => void
-    //addPost: (postMessage: string) => void
     subscribe: (observer: (state: StateType) => void) => void
     getState: () => StateType
     dispatch: (action: ActionsTypes) => void
-
 }
-
 
 let store: StoreType = {
     _state: {
@@ -83,6 +61,7 @@ let store: StoreType = {
                 {id: 4, message: 'Hi'},
                 {id: 5, message: 'All is good'}
             ],
+            newMessageText: '',
             dialogs: [
                 {id: 1, name: 'Дима'},
                 {id: 2, name: 'Маша'},
@@ -91,42 +70,23 @@ let store: StoreType = {
                 {id: 5, name: 'Денис'},
 
             ]
-        }
+        },
+        sidebar: {}
     },
     _callSubscriber(state: StateType) {
         console.log('state changed')
     },
-
     subscribe(observer) {
         this._callSubscriber = observer
     },
     getState() {
         return {...this._state}
     },
-
-
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost: PostDataType = {
-                id: new Date().getTime(),
-                message: action.postMessage,
-                likesCount: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._callSubscriber(this._state)
-            this._state.profilePage.newPostText=''
-            this._callSubscriber(this._state)
-
-        }
-
-        if (action.type === 'CHANGE-NEW-POST') {
-            this._state.profilePage.newPostText = action.postText
-            this._callSubscriber(this._state)
-
-        }
-
+        this._state.profilePage =profilePageReducer(this._state.profilePage,action)
+        this._state.dialogsPage = profilePagereducer(this._state.dialogsPage,action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar,action)
+        this._callSubscriber(this._state)
     }
 }
-
-
 export default store;

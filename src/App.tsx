@@ -11,9 +11,10 @@ import {Settings} from './components/settings/Settings';
 import {ActionsTypes, StateType} from './redux/state.js';
 
 type AppPropsType = {
-    appState: StateType
+    state: StateType
     dispatch:(action:ActionsTypes)=>void
     newPostText:string
+    newMessageText:string
 }
 
 function App(props: AppPropsType) {
@@ -25,12 +26,12 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className={'app-wrapper-content'}>
 
-                <Route path={'/dialogs'} render={() => <Dialogs state={props.appState.dialogsPage}/>}/>
+                <Route path={'/dialogs'} render={() => <Dialogs state={props.state.dialogsPage} newMessageText={props.state.dialogsPage.newMessageText} dispatch={props.dispatch}/>}/>
                 <Route path={'/profile'}
                        render={() => <Profile
-                           state={props.appState.profilePage}
+                           state={props.state.profilePage}
                            dispatch={props.dispatch}
-                           newPostText={props.appState.profilePage.newPostText}
+                           newPostText={props.state.profilePage.newPostText}
                        />}
                 />
                 <Route path={'/news'} component={News}/>
