@@ -1,8 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import myPostCss from './MyPost.module.css'
 import {Post} from './post/Post';
-import {ActionsTypes,  ProfilePageType} from '../../../redux/state.js';
+
 import {addPostAC, changeNewPostAC} from '../../../redux/profilePage-reducer';
+import {ActionsTypes, ProfilePageType} from '../../../redux/store';
 
 
 type myPostTypeProps= {
@@ -36,7 +37,7 @@ let onChangeTextarea=(e:ChangeEvent<HTMLTextAreaElement>)=>{props.dispatch(chang
             <div>
                 <textarea onChange={onChangeTextarea} value={props.newPostText}/>
                 <div>
-                    <button onClick={onClickAddPost}>Add post</button>
+                    <button onClick={onClickAddPost} >Add post</button>
                 </div>
             </div>
             <div className={myPostCss.posts}>

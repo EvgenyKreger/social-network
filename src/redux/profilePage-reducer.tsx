@@ -1,7 +1,15 @@
-import {ActionsTypes, PostDataType, ProfilePageType} from './state.js';
+import {ActionsTypes, PostDataType, ProfilePageType} from './store';
 
-
-export const profilePageReducer=(state:ProfilePageType,action:ActionsTypes)=>{
+let initialState={
+    postsData: [
+        {id: 1, message: 'Hello! How are you?', likesCount: 12},
+        {id: 2, message: 'It\'s my first message bro))', likesCount: 2},
+        {id: 3, message: 'It\'s my first message ))', likesCount: 4},
+        {id: 4, message: 'It\'s my first message ))', likesCount: 22}
+    ],
+    newPostText: ''
+}
+export const profilePageReducer=(state:ProfilePageType=initialState,action:ActionsTypes)=>{
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostDataType = {
@@ -9,8 +17,10 @@ export const profilePageReducer=(state:ProfilePageType,action:ActionsTypes)=>{
                 message: action.postMessage,
                 likesCount: 0
             }
+
             state.postsData.push(newPost)
             state.newPostText = ''
+
             return state
         case 'CHANGE-NEW-POST':
             state.newPostText = action.postText

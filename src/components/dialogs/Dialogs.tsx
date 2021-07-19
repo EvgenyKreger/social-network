@@ -2,8 +2,8 @@ import React, {ChangeEvent} from 'react';
 import dialogCss from './Dialogs.module.css'
 import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
-import {ActionsTypes, DialogsPageType} from '../../redux/state.js';
 import {changeNewMessageAC, changeNewMessageTextAC} from '../../redux/dialogsPage-reducer';
+import {ActionsTypes, DialogsPageType} from '../../redux/store';
 
 type Sate = {
     state: DialogsPageType
@@ -39,7 +39,7 @@ export function Dialogs(props: Sate) {
             </div>
             <div>
                 {newMessages}
-                <textarea onChange={onChangeTextarea} > </textarea>
+                <textarea onChange={onChangeTextarea} value={props.newMessageText} > </textarea>
                 <div>
                     <button onClick={onClickMessageHandler}>send</button>
                 </div>
