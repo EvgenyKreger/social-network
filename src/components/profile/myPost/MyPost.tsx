@@ -1,43 +1,31 @@
 import React, {ChangeEvent} from 'react';
 import myPostCss from './MyPost.module.css'
 import {Post} from './post/Post';
-
-import {addPostAC, changeNewPostAC} from '../../../redux/profilePage-reducer';
-import {ActionsTypes, ProfilePageType} from '../../../redux/store';
+import { PostDataType, ProfilePageType} from '../../../redux/store';
 
 
 type myPostTypeProps= {
-    state:ProfilePageType
+    profilePage:ProfilePageType
+    postsData:Array<PostDataType>
     newPostText:string
-    dispatch:(action:ActionsTypes)=>void
+    onChangeTextareaHandler:(e:ChangeEvent<HTMLTextAreaElement>)=>void
+    onClickAddPostHandler:(newPostText: string)=>void
 
 
 }
 
 export function MyPost(props:myPostTypeProps) {
-let postsElement=props.state.postsData.map(p=><Post message={p.message} likesCount={p.likesCount} />)
+let postsElement=props.postsData.map(p=><Post message={p.message} likesCount={p.likesCount} />)
 
 
-
-    let onClickAddPost=()=> {
-            if(props.newPostText.trim()===''){
-                return
-            }
-            //props.dispatch({type: 'ADD-POST',postMessage: props.newPostText}) переносим функцию в state и импортируем обратно сюда
-    props.dispatch(addPostAC(props.newPostText))
-
-
-    }
-//{type: 'CHANGE-NEW-POST', postText: e.currentTarget.value}переносим функцию в state и импортируем обратно сюда
-let onChangeTextarea=(e:ChangeEvent<HTMLTextAreaElement>)=>{props.dispatch(changeNewPostAC(e.currentTarget.value))}
 
     return (
         <div className={myPostCss.item}>
             <h3>My posts</h3>
             <div>
-                <textarea onChange={onChangeTextarea} value={props.newPostText}/>
+                <textarea onChange={(e)=>{props.onChangeTextareaHandler(e)}} value={props.newPostText}/>
                 <div>
-                    <button onClick={onClickAddPost} >Add post</button>
+                    <button onClick={()=>{props.onClickAddPostHandler(props.newPostText)}} >Add post</button>
                 </div>
             </div>
             <div className={myPostCss.posts}>

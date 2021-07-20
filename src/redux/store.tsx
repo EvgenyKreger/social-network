@@ -1,6 +1,6 @@
-import {addPostAC, changeNewPostAC, profilePageReducer} from './profilePage-reducer';
-import {changeNewMessageAC, changeNewMessageTextAC, dialogsPageReducer} from './dialogsPage-reducer';
-import {sideBarAC, sidebarReducer} from './sidebar-reducer';
+import {addPostAC, changeNewPostAC} from './profilePage-reducer';
+import {changeNewMessageAC, changeNewMessageTextAC} from './dialogsPage-reducer';
+import {sideBarAC} from './sidebar-reducer';
 
 
 type DialogsType = {
@@ -36,14 +36,14 @@ export type ActionsTypes = ReturnType<typeof changeNewPostAC>
     |ReturnType<typeof changeNewMessageAC>
     |ReturnType<typeof sideBarAC>
 
-
-export type StoreType = {
-    _state: StateType
-    _callSubscriber: (state: StateType) => void
-    subscribe: (observer: (state: StateType) => void) => void
-    getState: () => StateType
-    dispatch: (action: ActionsTypes) => void
-}
+//
+// export type StoreType = {
+//     _state: StateType
+//     _callSubscriber: (state: StateType) => void
+//     subscribe: (observer: (state: StateType) => void) => void
+//     getState: () => StateType
+//     dispatch: (action: ActionsTypes) => void
+// }
 
 // let store: StoreType = {
 //     _state: {

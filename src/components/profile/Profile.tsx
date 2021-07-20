@@ -1,20 +1,26 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {MyPost} from './myPost/MyPost';
 import {ProfileInfo} from './profileInfo/ProfileInfo';
-import {ActionsTypes, ProfilePageType} from '../../redux/store';
+import {PostDataType, ProfilePageType} from '../../redux/store';
 
 
 type ProfileProps = {
-    state: ProfilePageType
-    dispatch:(action:ActionsTypes)=>void
+    profilePage:ProfilePageType
+    postsData:Array<PostDataType>
     newPostText:string
+    onChangeTextareaHandler:(e:ChangeEvent<HTMLTextAreaElement>)=>void
+    onClickAddPostHandler:(newPostText: string)=>void
 }
 export function Profile(props:ProfileProps) {
 
     return (
         <div >
             <ProfileInfo/>
-            <MyPost state={props.state} dispatch={props.dispatch} newPostText={props.newPostText}/>
+            <MyPost postsData={props.postsData}
+                    profilePage={props.profilePage}
+                    newPostText={props.newPostText}
+                    onChangeTextareaHandler={props.onChangeTextareaHandler}
+                    onClickAddPostHandler={props.onClickAddPostHandler}/>
         </div>
     )
 }
