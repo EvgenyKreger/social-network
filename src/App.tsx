@@ -10,7 +10,6 @@ import DialogsContainer from './components/dialogs/DialogsContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 
 
-
 function App() {
     return (
 
@@ -27,12 +26,8 @@ function App() {
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
-
-
             </div>
-
         </div>
-
     );
 }
 
