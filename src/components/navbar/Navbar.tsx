@@ -4,7 +4,7 @@ import navbarCss from './Navbar.module.css'
 
 export function Navbar() {
 
-    console.log((navbarCss));
+
     return (
 
         <nav className={navbarCss.nav}>
@@ -13,6 +13,9 @@ export function Navbar() {
             </div>
             <div className={navbarCss.item}>
                 <NavLink to={'/dialogs'} activeClassName={navbarCss.activeLink}>Messages</NavLink>
+            </div>
+            <div className={navbarCss.item}>
+                <NavLink to={'/users'} activeClassName={navbarCss.activeLink}>Users</NavLink>
             </div>
             <div className={navbarCss.item}>
                 <NavLink to={'/news'} activeClassName={navbarCss.activeLink}>News</NavLink>
