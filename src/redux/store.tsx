@@ -1,6 +1,7 @@
 import {addPostAC, changeNewPostAC} from './profilePage-reducer';
 import {changeNewMessageAC, changeNewMessageTextAC} from './dialogsPage-reducer';
 import {sideBarAC} from './sidebar-reducer';
+import {usersType} from './users-reducer';
 
 
 type DialogsType = {
@@ -29,6 +30,7 @@ export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar:any
+    usersPage:usersType
 }
 export type ActionsTypes = ReturnType<typeof changeNewPostAC>
     |ReturnType<typeof addPostAC>
