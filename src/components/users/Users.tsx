@@ -1,5 +1,8 @@
 import React from 'react';
 import { userType} from '../../redux/users-reducer';
+import axios from 'axios';
+import userPhoto from '../img/users_logo.png'
+
 
 
 export type UsersPropsType = {
@@ -11,55 +14,36 @@ export type UsersPropsType = {
 }
 
 
-export function Users(props: UsersPropsType) {
-    if (props.users.length === 0) {
-        props.setUser([{
-            id: '1',
-            followed: false,
-            fullName: 'Dim',
-            status: 'I\'m BOSS',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-            {
-                id: '2',
-                followed: true,
-                fullName: 'Ann',
-                status: 'I\'m BOSS too',
-                location: {city: 'Moscow', country: 'Russian'}
-            },
-            {
-                id: '3',
-                followed: true,
-                fullName: 'Ann',
-                status: 'I\'m BOSS too',
-                location: {city: 'Moscow', country: 'Russian'}
-            },
-            {
-                id: '4',
-                followed: true,
-                fullName: 'Ann',
-                status: 'I\'m BOSS too',
-                location: {city: 'Moscow', country: 'Russian'}
-            }
-        ])
+export class Users extends React.Component<UsersPropsType, Array<userType>> {
+    constructor(props: UsersPropsType) {
+        super(props);
+        axios.get(" https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUser(response.data.items);
+        })
     }
-    return <div>
-        {
-            props.users.map(u => <div key={u.id}>
-                <img src="https://image.flaticon.com/icons/png/128/3048/3048189.png" alt={'ava'}/>
-                <span>{u.fullName}</span>
-                <div>{u.status}</div>
-                <div>{u.location.country}, {u.location.city}</div>
-                {u.followed
-                    ? <button onClick={() => {
-                        props.unfollow(u.id)
-                    }}>Unfollow</button>
-                    : <button onClick={() => {
-                        props.follow(u.id)
-                    }}>Follow</button>}
+    render() {
+        return <div>
+            {
+                this.props.users.map(u => <div key={u.id}>
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={'ava'}/>
+                        <span>{u.name}</span>
+                        <div>{u.status}</div>
+                        <div>{"u.location.country"}, {"u.location.city"}</div>
+                        {u.followed
+                            ? <button onClick={() => {
+                                this.props.unfollow(u.id)
+                            }}>Unfollow</button>
+                            : <button onClick={() => {
+                                this.props.follow(u.id)
+                            }}>Follow</button>
+                        }
 
-            </div>)
-        }
+                    </div>
+                )
 
-    </div>
+            }
+
+        </div>
+
+    }
 }

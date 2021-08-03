@@ -8,12 +8,17 @@ export type locationType = {
     city: string
     country: string
 }
+export type photosType = {
+    small: string
+    large: string
+}
 export type userType = {
     id: string
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: locationType
+    photos:photosType
 }
 export type usersType={
     users:Array<userType>
