@@ -1,5 +1,6 @@
-import usersReducer, {followAC, unfollowAC, usersType} from './users-reducer';
 
+import usersReducer, {followAC, unfollowAC, usersType} from './users-reducer';
+/*
 
 test('write user should be correct change follow',()=>{
 const startState: usersType={
@@ -38,3 +39,4 @@ test('write user should be correct change unfollow',()=>{
                 photos:{small: "123", large: "126"}},
         ]})
 })
+*!/*/
