@@ -40,7 +40,7 @@ let initialState = {
     users: [],
     totalCounter:0,
     sizePage:5,
-    currentPage:3
+    currentPage:1
 }
 
 export const usersReducer = (state: usersType= initialState, action:TypeForActions) => {

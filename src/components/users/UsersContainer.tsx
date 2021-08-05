@@ -1,6 +1,6 @@
 
 import {connect} from 'react-redux';
-import {Users} from './Users';
+import { UsersAPIComponent} from './UsersAPIComponent';
 import {StateType} from '../../redux/store';
 import {
     followAC, setCurrentPageAC, setTotalCounterAC,
@@ -45,7 +45,7 @@ let mapDispatchToProps = (dispatch:(action:TypeForActions)=>void)=>{
         },
     }
 }
-const UsersContainer:any = connect (mapStateToProps,mapDispatchToProps)(Users);
+const UsersContainer:any = connect (mapStateToProps,mapDispatchToProps)(UsersAPIComponent);
 
 export default UsersContainer;
 
