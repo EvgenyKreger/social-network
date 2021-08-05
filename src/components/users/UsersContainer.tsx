@@ -1,28 +1,30 @@
-
 import {connect} from 'react-redux';
-import { UsersAPIComponent} from './UsersAPIComponent';
+import {UsersAPIComponent} from './UsersAPIComponent';
 import {StateType} from '../../redux/store';
 import {
-    followAC, setCurrentPageAC, setTotalCounterAC,
-    setUsersAC,
-    TypeForActions,
-    unfollowAC, usersType,
-    userType
+    follow,
+    setCurrentPage,
+    setIsFetching,
+    setTotalCounter,
+    setUsers,
+    unfollow,
+
 } from '../../redux/users-reducer';
 
 
-let mapStateToProps = (state:StateType)=>{
-    return{
-        users:state.usersPage.users,
-        totalCounter:state.usersPage.totalCounter,
-        sizePage:state.usersPage.sizePage,
-        currentPage:state.usersPage.currentPage
-
+let mapStateToProps = (state: StateType) => {
+    return {
+        users: state.usersPage.users,
+        totalCounter: state.usersPage.totalCounter,
+        sizePage: state.usersPage.sizePage,
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
 
 
     }
 }
 
+/*
 let mapDispatchToProps = (dispatch:(action:TypeForActions)=>void)=>{
 
     return{
@@ -43,9 +45,20 @@ let mapDispatchToProps = (dispatch:(action:TypeForActions)=>void)=>{
         setPageNumber:(currentPage:number)=>{
             dispatch(setCurrentPageAC (currentPage));
         },
+        setIsFetching:(isFetching:boolean)=>{
+            dispatch(setIsFetchingAC (isFetching));
+        },
     }
 }
-const UsersContainer:any = connect (mapStateToProps,mapDispatchToProps)(UsersAPIComponent);
+*/
+const UsersContainer: any = connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setTotalCounter,
+    setCurrentPage,
+    setIsFetching
+})(UsersAPIComponent);
 
 export default UsersContainer;
 
