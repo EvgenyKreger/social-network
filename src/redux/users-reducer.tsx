@@ -36,7 +36,7 @@ export type TypeForActions = ReturnType<typeof follow>
     | ReturnType<typeof setTotalCounter>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setIsFetching>
-debugger
+
 let initialState = {
     users: [],
     totalCounter: 0,
@@ -130,5 +130,3 @@ export const setIsFetching = (isFetching: boolean) => {
     } as const
 }
 
-
-export default usersReducer;

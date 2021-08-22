@@ -11,13 +11,17 @@
 
 }
 .header span{
-
-    font-size: 50px;
+padding-top: 10px;
+    font-size: 35px;
     color: white;
-    padding-bottom: 20px;
-    position: absolute;
+    float: left;
+}
+.login{
+    float: right;
+    padding-right: 20px;
 
-
-
-
+}
+.login a{
+    color: white;
+    font-size: larger;
 }

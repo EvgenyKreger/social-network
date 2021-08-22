@@ -1,15 +1,15 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import myPostCss from './MyPost.module.css'
 import {Post} from './post/Post';
-import { PostDataType, ProfilePageType} from '../../../redux/store';
+import { PostDataType} from '../../../redux/store';
 
 
 type myPostTypeProps= {
-    profilePage:ProfilePageType
+
     postsData:Array<PostDataType>
     newPostText:string
-    onChangeTextareaHandler:(e:ChangeEvent<HTMLTextAreaElement>)=>void
-    onClickAddPostHandler:(newPostText: string)=>void
+    changeNewPost:(newPostText:string)=>void
+    addPost:(newPostText: string)=>void
 
 
 }
@@ -23,9 +23,9 @@ let postsElement=props.postsData.map(p=><Post message={p.message} likesCount={p.
         <div className={myPostCss.item}>
             <h3>My posts</h3>
             <div>
-                <textarea onChange={(e)=>{props.onChangeTextareaHandler(e)}} value={props.newPostText}/>
+                <textarea onChange={()=>{props.changeNewPost(props.newPostText)}} value={props.newPostText}/>
                 <div>
-                    <button onClick={()=>{props.onClickAddPostHandler(props.newPostText)}} >Add post</button>
+                    <button onClick={()=>{props.addPost(props.newPostText)}} >Add post</button>
                 </div>
             </div>
             <div className={myPostCss.posts}>

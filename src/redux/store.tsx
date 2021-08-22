@@ -1,7 +1,8 @@
-import {addPostAC, changeNewPostAC} from './profilePage-reducer';
+import {addPost, changeNewPost, ProfileType} from './profilePage-reducer';
 import {changeNewMessageAC, changeNewMessageTextAC} from './dialogsPage-reducer';
 import {sideBarAC} from './sidebar-reducer';
 import {usersType} from './users-reducer';
+import {authType} from './auth-reducer';
 
 
 type DialogsType = {
@@ -23,6 +24,7 @@ export type DialogsPageType = {
     newMessageText:string
 }
 export type ProfilePageType = {
+    profile: ProfileType;
     postsData: Array<PostDataType>
     newPostText: string
 }
@@ -31,9 +33,11 @@ export type StateType = {
     dialogsPage: DialogsPageType
     sidebar:any
     usersPage:usersType
+    auth:authType
 }
-export type ActionsTypes = ReturnType<typeof changeNewPostAC>
-    |ReturnType<typeof addPostAC>
+export type ActionsTypes =
+    ReturnType<typeof changeNewPost>
+    |ReturnType<typeof addPost>
     |ReturnType<typeof changeNewMessageTextAC>
     |ReturnType<typeof changeNewMessageAC>
     |ReturnType<typeof sideBarAC>

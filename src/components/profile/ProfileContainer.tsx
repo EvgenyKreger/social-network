@@ -1,35 +1,23 @@
-import {ChangeEvent} from 'react';
 
-import {ActionsTypes, StateType} from '../../redux/store';
+
+import {StateType} from '../../redux/store';
 import {connect} from 'react-redux';
-import {addPostAC, changeNewPostAC} from '../../redux/profilePage-reducer';
-import {Profile} from './Profile';
+import {addPost, changeNewPost, setUserProfile} from '../../redux/profilePage-reducer';
+import {ProfileContainerAPI} from './ProfileContainerAPI';
+import { withRouter} from 'react-router-dom';
 
 
 let mapStateToProps=(state:StateType)=>{
     return{
         profilePage:state.profilePage,
         newPostText:state.profilePage.newPostText,
-        postsData:state.profilePage.postsData
-    }
-}
-let mapDispatchToProps=(dispatch:(action: ActionsTypes) => void)=> {
-    return {
-        onChangeTextareaHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(changeNewPostAC(e.currentTarget.value))
-        },
-
-        onClickAddPostHandler: (newPostText: string) => {
-            if (newPostText.trim() === '') {
-                return
-            }
-            dispatch(addPostAC(newPostText))
-        }
-
+        postsData:state.profilePage.postsData,
+        profile:state.profilePage.profile
     }
 }
 
 
-const ProfileContainer = connect (mapStateToProps,mapDispatchToProps)(Profile);
+
+const ProfileContainer= connect (mapStateToProps,{changeNewPost,addPost,setUserProfile})(withRouter(ProfileContainerAPI as any));
 
 export default ProfileContainer;
