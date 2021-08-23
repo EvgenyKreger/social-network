@@ -3,6 +3,7 @@ import {PostDataType, ProfilePageType} from '../../redux/store';
 import {Profile} from './Profile';
 import axios from 'axios';
 import {ProfileType} from '../../redux/profilePage-reducer';
+import {profileAPI} from '../../api/api';
 
 
 
@@ -23,8 +24,9 @@ export class ProfileContainerAPI extends React.Component<ProfileProps, ProfilePa
     componentDidMount() {
 
 let userId = this.props.match.params.userId
-axios.get(` https://social-network.samuraijs.com/api/1.0/profile/`+userId).then(response => {
-            this.props.setUserProfile(response.data)
+profileAPI.getProfile(userId)
+    .then(data => {
+            this.props.setUserProfile(data)
             }
         )
     }

@@ -3,6 +3,7 @@ import userPhoto from '../img/users_logo.png';
 import React from 'react';
 import {userType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
+import {usersAPI} from '../../api/api';
 
 export type UsersPropsType = {
     users: Array<userType>
@@ -30,15 +31,27 @@ export function Users(props: UsersPropsType) {
                 <NavLink to={'/profile/' + u.id}>
                     <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={'ava'}/>
                 </NavLink>
-                <span>{u.name}</span>
+                <span>{u.name}</span>follow/${}
                 <div>{u.status}</div>
                 <div>{'u.location.country'}, {'u.location.city'}</div>
                 {u.followed
                     ? <button onClick={() => {
-                        props.unfollow(u.id)
+                       usersAPI.unfollowUsers(u.id)
+                            .then(data => {
+                                if (data.resultCode === 0) {
+                                    props.unfollow(u.id)
+                                }
+                            })
+
                     }}>Unfollow</button>
                     : <button onClick={() => {
-                        props.follow(u.id)
+                       usersAPI.followUsers(u.id)
+                            .then(data => {
+                                if (data.resultCode === 0) {
+                                    props.follow(u.id)
+                                }
+                            })
+
                     }}>Follow</button>
                 }
 
