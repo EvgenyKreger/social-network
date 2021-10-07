@@ -1,10 +1,7 @@
 import React from 'react';
 import {PostDataType, ProfilePageType} from '../../redux/store';
 import {Profile} from './Profile';
-import axios from 'axios';
 import {ProfileType} from '../../redux/profilePage-reducer';
-import {profileAPI} from '../../api/api';
-
 
 
 type ProfileProps = {
@@ -14,21 +11,16 @@ type ProfileProps = {
     newPostText: string
     changeNewPost: (newPostText: string) => void
     addPost: (newPostText: string) => void
-    setUserProfile:(data:ProfileType)=>void
-    match:any
+    setUserProfile: (data: ProfileType) => void
+    match: any
+    setProfile: (match: any) => void
 }
-
 
 
 export class ProfileContainerAPI extends React.Component<ProfileProps, ProfilePageType> {
     componentDidMount() {
+        this.props.setProfile(this.props.match);
 
-let userId = this.props.match.params.userId
-profileAPI.getProfile(userId)
-    .then(data => {
-            this.props.setUserProfile(data)
-            }
-        )
     }
 
     render() {

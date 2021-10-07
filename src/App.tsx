@@ -10,6 +10,10 @@ import DialogsContainer from './components/dialogs/DialogsContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import UsersContainer from './components/users/UsersContainer';
 import HeaderContainer from './components/header/HeaderContainer';
+import main from './components/img/main.jpg';
+
+
+
 
 
 function App() {
@@ -20,9 +24,8 @@ function App() {
             <HeaderContainer/>
             <Navbar/>
             <div className={'app-wrapper-content'}>
-
                 <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                <Route path={'/profile/:userId'} render={() => <ProfileContainer/>}/>
+                <Route path={'/profile/:userId'} render={() =><ProfileContainer/>}/>
                 <Route path={'/users'} render={() => <UsersContainer/>}/>
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>

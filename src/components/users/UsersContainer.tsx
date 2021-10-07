@@ -2,12 +2,9 @@ import {connect} from 'react-redux';
 import {UsersAPIComponent} from './UsersAPIComponent';
 import {StateType} from '../../redux/store';
 import {
-    follow,
+    follow, getUsers,
     setCurrentPage,
-    setIsFetching,
-    setTotalCounter,
-    setUsers,
-    unfollow,
+    unfollow
 
 } from '../../redux/users-reducer';
 
@@ -26,10 +23,8 @@ let mapStateToProps = (state: StateType) => {
 const UsersContainer: any = connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
-    setTotalCounter,
     setCurrentPage,
-    setIsFetching
+    getUsers
 })(UsersAPIComponent);
 
 export default UsersContainer;

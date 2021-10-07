@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 
-const instance =axios.create({
+export const instance =axios.create({
     withCredentials:true,
     baseURL:'https://social-network.samuraijs.com/api/1.0',
     headers:{
@@ -30,11 +30,3 @@ export const usersAPI= {
     }
 }
 
-export const profileAPI= {
-    getProfile(userId:string) {
-        return instance.get(`/profile/${userId}`)
-            .then(response => {
-                return response.data
-            })
-    }
-}

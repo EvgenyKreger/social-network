@@ -1,8 +1,7 @@
 import React from 'react';
-import {usersType, userType} from '../../redux/users-reducer';
+import {userType} from '../../redux/users-reducer';
 import {Users} from './Users';
 import {Louding} from './Louding';
-import {usersAPI} from '../../api/api';
 
 
 export type UsersAPIPropsType = {
@@ -13,10 +12,8 @@ export type UsersAPIPropsType = {
     currentPage: number
     follow: (userId: string) => void
     unfollow: (userId: string) => void
-    setUsers: (users: userType[]) => void
-    setTotalCounter: (totalCounter: usersType) => void
     setCurrentPage: (currentPage: number) => void
-    setIsFetching: (isFetching: boolean) => void
+    getUsers: (sizePage: number, currentPage: number) => void
 
 }
 
@@ -24,23 +21,11 @@ export type UsersAPIPropsType = {
 export class UsersAPIComponent extends React.Component<UsersAPIPropsType, Array<userType>> {
 
     componentDidMount() {
-        this.props.setIsFetching(true)
-        usersAPI.getUsers(this.props.sizePage,this.props.currentPage)
-            .then(data => {
-            this.props.setIsFetching(false)
-            this.props.setUsers(data.items);
-            this.props.setTotalCounter(data.totalCount);
-        });
+        this.props.getUsers(this.props.sizePage, this.props.currentPage);
     }
 
     onChangeHandler = (currentPage: number) => {
-        this.props.setIsFetching(true)
-        this.props.setCurrentPage(currentPage);
-        usersAPI.getUsers(this.props.sizePage,this.props.currentPage)
-            .then(data => {
-            this.props.setIsFetching(false)
-            this.props.setUsers(data.items);
-        })
+        this.props.getUsers(currentPage, this.props.sizePage);
     }
 
     render() {
@@ -55,6 +40,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIPropsType, Array<
                        follow={this.props.follow}
                        users={this.props.users}
                        onChangeHandler={this.onChangeHandler}
+
                 />
 
 

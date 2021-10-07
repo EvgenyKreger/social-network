@@ -4,6 +4,7 @@ import {ProfileInfo} from './profileInfo/ProfileInfo';
 import {PostDataType, ProfilePageType} from '../../redux/store';
 
 
+
 type ProfileProps = {
     profilePage:ProfilePageType
     postsData:Array<PostDataType>

@@ -2,7 +2,7 @@
 
 import {StateType} from '../../redux/store';
 import {connect} from 'react-redux';
-import {addPost, changeNewPost, setUserProfile} from '../../redux/profilePage-reducer';
+import {addPost, changeNewPost, setProfile, setUserProfile} from '../../redux/profilePage-reducer';
 import {ProfileContainerAPI} from './ProfileContainerAPI';
 import { withRouter} from 'react-router-dom';
 
@@ -18,6 +18,6 @@ let mapStateToProps=(state:StateType)=>{
 
 
 
-const ProfileContainer= connect (mapStateToProps,{changeNewPost,addPost,setUserProfile})(withRouter(ProfileContainerAPI as any));
+const ProfileContainer= connect (mapStateToProps,{changeNewPost,addPost,setUserProfile,setProfile})(withRouter(ProfileContainerAPI as any));
 
 export default ProfileContainer;
